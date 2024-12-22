@@ -1,0 +1,14 @@
+file_format: "1"
+id: splitkb_aurora_sofle_v2
+name: splitkb_aurora_sofle_v2
+type: shield
+url: https://github.com/FlorianGantioler
+requires: [pro_micro]
+exposes: [i2c_oled]
+features:
+  - keys
+  - display
+  - encoder
+siblings:
+  - splitkb_aurora_sofle_v2_left
+  - splitkb_aurora_sofle_v2_right
