@@ -336,8 +336,8 @@
             bindings = <&msc SCRL_LEFT>, <&msc SCRL_RIGHT>;
             tap-ms = <200>;
         };
-    };
 */
+    };
 
     combos {
         compatible = "zmk,combos";
