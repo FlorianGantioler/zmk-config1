@@ -200,7 +200,7 @@
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
             bindings = <&mkp LCLK>, <&mkp MCLK>;
-            mods = <(MOD_LCTRL|MOD_RCTRL)>;
+            mods = <(MOD_LCTL|MOD_RCTL)>;
         };
 
         mo_tog: behavior_mo_tog {
