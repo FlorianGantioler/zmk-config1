@@ -379,7 +379,7 @@
                       &kp LALT    &kp INS     &kp LGUI    &tdl1 &mod_morph_ret    &mod_morph_space &tdl2       &kp BSPC         &kp DEL        &kp RALT
             >;
 
-            sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp LEFT RIGHT;
+            sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp LEFT RIGHT>;
         };
 
         lower_layer {
@@ -397,7 +397,7 @@
                  &trans    &trans    &trans    &trans    &trans    &trans &trans    &trans    &trans     &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp LEFT RIGHT;
+            sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp LEFT RIGHT>;
         };
 
         scade_layer {
@@ -423,7 +423,7 @@
                     &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp LEFT RIGHT;
+            sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp LEFT RIGHT>;
         };
 
         scroll_layer {
