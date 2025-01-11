@@ -5,7 +5,6 @@
  */
 
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 300
-#define ZMK_POINTING_DEFAULT_MOVE_VAL 5000
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
@@ -152,6 +151,26 @@
                 , <&macro_tap &kp B>
                 , <&macro_release &kp LSHFT>
                 , <&macro_release &kp LCTRL>
+                ;
+        };
+
+        ger_not: ger_not {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp RALT>
+                , <&macro_tap &kp N6>
+                , <&macro_release &kp RALT>
+                ;
+        };
+
+        ger_mu: ger_mu {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp RALT>
+                , <&macro_tap &kp M>
+                , <&macro_release &kp RALT>
                 ;
         };
     };
@@ -312,50 +331,32 @@
             bindings = <&kp RSHFT>, <&kp CAPS>;
         };
 
-        mouse_ver: mouse_ver {
-            compatible = "zmk,behavior-sensor-rotate";
-            #sensor-binding-cells = <0>;
-            bindings = <&mmv MOVE_UP>, <&mmv MOVE_DOWN>;
-            tap-ms = <20>;
+        tdl1: tap_dance_layer1_switch {
+            compatible = "zmk,behavior-tap-dance";
+            tapping-term-ms = <200>;
+            #binding-cells = <0>;
+            bindings = <&mo 1>, <&tog 2>;
         };
 
-        mouse_hor: mouse_hor {
-            compatible = "zmk,behavior-sensor-rotate";
-            #sensor-binding-cells = <0>;
-            bindings = <&mmv MOVE_LEFT>, <&mmv MOVE_RIGHT>;
-            tap-ms = <20>;
+        tdl2: tap_dance_layer2_switch {
+            compatible = "zmk,behavior-tap-dance";
+            tapping-term-ms = <200>;
+            #binding-cells = <0>;
+            bindings = <&mo 1>, <&tog 3>;
         };
 
         scroll_ver: scroll_ver {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-            tap-ms = <20>;
+            tap-ms = <200>;
         };
 
         scroll_hor: scroll_hor {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_LEFT>, <&msc SCRL_RIGHT>;
-            tap-ms = <20>;
-        };
-    };
-
-    combos {
-        compatible = "zmk,combos";
-        combo_mouse {
-            timeout-ms = <50>;
-            key-positions = <54 55>;
-            layers = <3>;
-            bindings = <&mkp MCLK>;
-        };
-    };
-
-    conditional_layers {
-        compatible = "zmk,conditional-layers";
-        tri_layer {
-            if-layers = <4 5>;
-            then-layer = <6>;
+            tap-ms = <200>;
         };
     };
 
@@ -365,50 +366,46 @@
 
         default_layer {
 // ----------------------------------------------------------------------------------------------------------------
-// |  ESC  |  1  |  2  |  3   |  4   |  5   |                       |  6   |  7    |  8    |  9   |   0   |   `   |
-// |  TAB  |  Q  |  W  |  E   |  R   |  T   |                       |  Z   |  U    |  I    |  O   |   P   |   -   |
-// | SHIFT |  A  |  S  |  D   |  F   |  G   |                       |  H   |  J    |  K    |  L   |   ;   | SHIFT |
-// |  CTRL |  Y  |  X  |  C   |  V   |  B   |SCROLL_HOR|  |MOUSE_VER|  N   |  M    |  ,    |  .   |   /   |  CTRL |
-//               | ALT |INSERT| GUI  | LOWER|  SPACE   |  | ENTER   | LOWER| BSPC  |DELETE | RALT |
+// |  ESC  |  1  |  2  |  3   |  4   |  5   |                       |  6   |  7    |  8   |  9   |   0   |   /   |
+// |  TAB  |  Q  |  W  |  E   |  R   |  T   |                       |  Z   |  U    |  I   |  O   |   P   |   '   |
+// | SHIFT |  A  |  S  |  D   |  F   |  G   |                       |  H   |  J    |  K   |  L   |   ;   | SHIFT |
+// |  CTRL |  Y  |  X  |  C   |  V   |  B   |SCROLL|  |SCROLL|  N   |  M   |  ,    |  .   |  -   |  CTRL |
+//               | ALT |INSERT| GUI  | LOWER|SPACE |  |ENTER | LOWER| BSPC |DELETE | RALT |
             bindings = <
-&kp ESC   &mod_morph1 &mod_morph2 &mod_morph3 &mod_morph4 &mod_morph5                              &mod_morph6 &mod_morph7 &mod_morph8      &mod_morph9    &mod_morph0       &mod_morph_grave
-&kp TAB   &kp Q       &kp W       &kp E       &kp R       &kp T                                    &kp Y       &kp U       &kp I            &kp O          &kp P             &mod_morph_minus
+&kp ESC   &mod_morph1 &mod_morph2 &mod_morph3 &mod_morph4 &mod_morph5                              &mod_morph6 &mod_morph7 &mod_morph8      &mod_morph9    &mod_morph0       &mod_morph_fslash
+&kp TAB   &kp Q       &kp W       &kp E       &kp R       &kp T                                    &kp Y       &kp U       &kp I            &kp O          &kp P             &mod_morph_grave
 &td0      &kp A       &kp S       &kp D       &kp F       &kp G                                    &kp H       &kp J       &kp K            &kp L          &mod_morph_colon  &td1
-&kp LCTRL &kp Z       &kp X       &kp C       &kp V       &kp B       &tog 4              &tog 5   &kp N       &kp M       &mod_morph_comma &mod_morph_dot &mod_morph_fslash &kp RCTRL
-                      &kp LALT    &kp INS     &kp LGUI    &mo_tog 1 2 &mod_morph_ret    &mod_morph_space       &mo_tog 1 3 &kp BSPC         &kp DEL        &kp RALT
+&kp LCTRL &kp Z       &kp X       &kp C       &kp V       &kp B &tog 4            &tog 4           &kp N       &kp M       &mod_morph_comma &mod_morph_dot &mod_morph_minus &kp RCTRL
+                      &kp LALT    &kp INS     &kp LGUI    &tdl1 &mod_morph_ret    &mod_morph_space &tdl2       &kp BSPC         &kp DEL        &kp RALT
             >;
 
-            sensor-bindings =
-                <&scroll_ver>,
-                <&mouse_hor>;
+            sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp LEFT RIGHT;
         };
 
         lower_layer {
 // ---------------------------------------------------------------------------------------------------------
 // |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |                   |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
-// |      |  [   |  ]   | EURO |  (   |  )   |                   |  \   |  ue  |  ~   |  oe  |  =   |  +   |
-// |      |  ae  |  ss  |  °   |  {   |  }   |                   |  (   |  )   |  {   |  }   |  ]   |      |
-// |      |  "|" |  <-  |  v   |  ^   |  ->  |        |  |       |  <-  |  v   |  ^   |  ->  |  [   |      |
+// |      |  ^   |  °   | EURO |  {   |  }   |                   |  \   |  ue  |  ~   |  oe  |  =   |  +   |
+// |      |  ae  |  ss  |  ^   |  [   |  ]   |                   |  [   |  ]   |  ^   |  {   |  }   |      |
+// |      |  "|" |  <-  |  v   |  ->  |  ¬   |        |  |       |  µ   |  <-  |  v   |  ->  |      |      |
 //               |      |      |      |      |        |  |       |      |      |      |      |
             bindings = <
-&kp F1 &kp F2    &kp F3    &kp F4    &kp F5    &kp F6                     &kp F7    &kp F8   &kp F9     &kp F10   &kp F11   &kp F12
-&trans &ger_lbkt &ger_rbkt &ger_euro &kp STAR  &kp LPAR                   &ger_bslh &kp LBKT &ger_tilde &kp SEMI  &kp RPAR  &kp RBKT
-&trans &kp SQT   &kp MINUS &kp TILDE &ger_lbrc &ger_rbrc                  &kp STAR  &kp LPAR &ger_lbrc  &ger_rbrc &ger_lbkt &trans
-&trans &ger_pipe &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT &trans    &trans &kp LEFT  &kp DOWN &kp UP     &kp RIGHT &ger_rbkt &trans
-                 &trans    &trans    &trans    &trans    &trans    &trans &trans    &trans   &trans     &trans
+&kp F1 &kp F2    &kp F3    &kp F4    &kp F5    &kp F6                     &kp F7    &kp F8    &kp F9     &kp F10   &kp F11   &kp F12
+&trans &kp GRAVE &kp TILDE &ger_euro &ger_lbrc &ger_rbrc                  &ger_bslh &kp LBKT  &ger_tilde &kp SEMI  &kp RPAR  &kp RBKT
+&trans &kp SQT   &kp MINUS &kp UP    &ger_lbkt &ger_rbkt                  &ger_lbkt &ger_rbkt &kp UP     &ger_lbrc &ger_rbrc &trans
+&trans &ger_pipe &kp LEFT  &kp DOWN  &kp RIGHT &ger_not  &trans    &trans &ger_mu   &kp LEFT  &kp DOWN   &kp RIGHT &trans    &trans
+                 &trans    &trans    &trans    &trans    &trans    &trans &trans    &trans    &trans     &trans
             >;
 
-            sensor-bindings =
-                <&scroll_ver>,
-                <&mouse_hor>;
+            sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp LEFT RIGHT;
         };
 
         scade_layer {
             bindings = <
 &trans  &trans        &trans         &trans        &trans        &trans                    &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &scade_input  &scade_output  &scade_local  &scade_probe  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &kp LEFT      &kp DOWN       &kp UP        &kp RIGHT     &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans        &trans         &trans        &trans        &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans        &trans         &kp UP        &trans        &trans                    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans        &kp LEFT       &kp DOWN      &kp RIGHT     &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
                       &trans         &trans        &trans        &trans  &trans    &trans  &trans  &trans  &trans  &trans
             >;
 
@@ -417,35 +414,19 @@
                 <&mouse_hor>;
         };
 
-        mouse_layer {
+        numpad_layer {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans                          &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                          &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                          &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans       &trans     &trans  &trans  &trans  &trans  &trans  &trans
-                &trans  &trans  &trans  &trans  &mkp LCLK    &mkp RCLK  &trans  &trans  &trans  &trans
+&trans  &kp KP_NLCK &kp N7  &kp N8  &kp N9  &trans                       &trans  &kp N7  &kp N8  &kp N9  &kp KP_NLCK &trans
+&trans  &trans      &kp N4  &kp N5  &kp N6  &trans                       &trans  &kp N4  &kp N5  &kp N6  &trans      &trans
+&trans  &trans      &kp N1  &kp N2  &kp N3  &trans                       &trans  &kp N1  &kp N2  &kp N3  &trans      &trans
+&trans  &trans      &trans  &kp N0  &trans  &trans  &trans    &trans     &trans  &trans  &kp N0  &trans  &trans      &trans
+                    &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
             >;
 
-            sensor-bindings =
-                <&scroll_ver>,
-                <&mouse_hor>;
+            sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp LEFT RIGHT;
         };
 
-        scroll_hor_layer {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-                &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
-            >;
-
-            sensor-bindings =
-                <&scroll_hor>,
-                <&mouse_hor>;
-        };
-
-        mouse_ver_layer {
+        scroll_layer {
             bindings = <
 &trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
@@ -456,21 +437,7 @@
 
             sensor-bindings =
                 <&scroll_ver>,
-                <&mouse_ver>;
-        };
-
-        mouse_ver_scoll_hor_layer {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-                &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
-            >;
-
-            sensor-bindings =
-                <&scroll_hor>,
-                <&mouse_ver>;
+                <&scroll_hor>;
         };
     };
 };
