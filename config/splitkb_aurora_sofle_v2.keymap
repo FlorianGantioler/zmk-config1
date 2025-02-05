@@ -366,20 +366,22 @@
 
         default_layer {
 // ----------------------------------------------------------------------------------------------------------------
-// |  ESC  |  1  |  2  |  3   |  4   |  5   |                       |  6   |  7    |  8   |  9   |   0   |   /   |
-// |  TAB  |  Q  |  W  |  E   |  R   |  T   |                       |  Z   |  U    |  I   |  O   |   P   |   '   |
-// | SHIFT |  A  |  S  |  D   |  F   |  G   |                       |  H   |  J    |  K   |  L   |   ;   | SHIFT |
-// |  CTRL |  Y  |  X  |  C   |  V   |  B   |SCROLL|  |SCROLL|  N   |  M   |  ,    |  .   |  -   |  CTRL |
-//               | ALT |INSERT| GUI  | LOWER|SPACE |  |ENTER | LOWER| BSPC |DELETE | RALT |
+// |  ESC  |  1  |  2  |  3   |  4   |  5   |                |  6   |  7    |  8   |  9   |   0   |   /   |
+// |  TAB  |  Q  |  W  |  E   |  R   |  T   |                |  Z   |  U    |  I   |  O   |   P   |   '   |
+// | SHIFT |  A  |  S  |  D   |  F   |  G   |                |  H   |  J    |  K   |  L   |   ;   | SHIFT |
+// |  CTRL |  Y  |  X  |  C   |  V   |  B   |SCADE |  |NUMPAD|  N   |  M   |  ,    |  .   |  -    |  CTRL |
+//               | ALT |DELETE| GUI  | LOWER|SPACE |  |ENTER | LOWER| BSPC |INSERT | RALT |
             bindings = <
 &kp ESC   &mod_morph1 &mod_morph2 &mod_morph3 &mod_morph4 &mod_morph5                              &mod_morph6 &mod_morph7 &mod_morph8      &mod_morph9    &mod_morph0       &mod_morph_fslash
 &kp TAB   &kp Q       &kp W       &kp E       &kp R       &kp T                                    &kp Y       &kp U       &kp I            &kp O          &kp P             &mod_morph_grave
 &td0      &kp A       &kp S       &kp D       &kp F       &kp G                                    &kp H       &kp J       &kp K            &kp L          &mod_morph_colon  &td1
-&kp LCTRL &kp Z       &kp X       &kp C       &kp V       &kp B &tog 4            &tog 4           &kp N       &kp M       &mod_morph_comma &mod_morph_dot &mod_morph_minus &kp RCTRL
-                      &kp LALT    &kp INS     &kp LGUI    &tdl1 &mod_morph_ret    &mod_morph_space &tdl2       &kp BSPC         &kp DEL        &kp RALT
+&kp LCTRL &kp Z       &kp X       &kp C       &kp V       &kp B &tog 2            &tog 3           &kp N       &kp M       &mod_morph_comma &mod_morph_dot &mod_morph_minus &kp RCTRL
+                      &kp LALT    &kp DEL     &kp LGUI    &mo 1 &mod_morph_ret    &mod_morph_space &mo 1       &kp BSPC         &kp INS        &kp RALT
             >;
 
-            sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp LEFT RIGHT>;
+            sensor-bindings =
+                <&scroll_ver>,
+                <&scroll_hor>;
         };
 
         lower_layer {
@@ -397,39 +399,31 @@
                  &trans    &trans    &trans    &trans    &trans    &trans &trans    &trans    &trans     &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp LEFT RIGHT>;
+            sensor-bindings =
+                <&scroll_ver>,
+                <&scroll_hor>;
         };
 
         scade_layer {
             bindings = <
-&trans  &trans        &trans         &trans        &trans        &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &scade_input  &scade_output  &scade_local  &scade_probe  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans        &trans         &kp UP        &trans        &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans        &kp LEFT       &kp DOWN      &kp RIGHT     &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-                      &trans         &trans        &trans        &trans  &trans    &trans  &trans  &trans  &trans  &trans
+&trans  &trans        &trans         &trans    &trans        &trans                          &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &scade_input  &scade_output  &kp UP    &scade_probe  &scade_local                    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans        &kp LEFT       &kp DOWN  &kp RIGHT     &trans                          &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans        &trans         &trans    &trans        &trans        &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                      &trans         &trans    &trans        &trans        &trans    &trans  &trans  &trans  &trans  &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp LEFT RIGHT>;
+            sensor-bindings =
+                <&scroll_ver>,
+                <&scroll_hor>;
         };
 
         numpad_layer {
             bindings = <
-&trans  &kp KP_NLCK &kp N7  &kp N8  &kp N9  &trans                       &trans  &kp N7  &kp N8  &kp N9  &kp KP_NLCK &trans
-&trans  &trans      &kp N4  &kp N5  &kp N6  &trans                       &trans  &kp N4  &kp N5  &kp N6  &trans      &trans
-&trans  &trans      &kp N1  &kp N2  &kp N3  &trans                       &trans  &kp N1  &kp N2  &kp N3  &trans      &trans
-&trans  &trans      &trans  &kp N0  &trans  &trans  &trans    &trans     &trans  &trans  &kp N0  &trans  &trans      &trans
-                    &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
-            >;
-
-            sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp LEFT RIGHT>;
-        };
-
-        scroll_layer {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &kp N7  &kp N8  &kp N9  &trans                    &trans  &kp N7  &kp N8  &kp N9  &trans  &trans
+&trans  &trans  &kp N4  &kp N5  &kp N6  &trans                    &trans  &kp N4  &kp N5  &kp N6  &trans  &trans
+&trans  &trans  &kp N1  &kp N2  &kp N3  &trans                    &trans  &kp N1  &kp N2  &kp N3  &trans  &trans
+&trans  &trans  &trans  &kp N0  &trans  &trans  &trans    &trans  &trans  &trans  &kp N0  &trans  &trans  &trans
                 &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
             >;
 
@@ -437,5 +431,19 @@
                 <&scroll_ver>,
                 <&scroll_hor>;
         };
+
+//        scroll_layer {
+//            bindings = <
+//&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
+//&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
+//&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
+//&trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
+//                &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
+//            >;
+//
+//            sensor-bindings =
+//                <&scroll_ver>,
+//                <&scroll_hor>;
+//        };
     };
 };
